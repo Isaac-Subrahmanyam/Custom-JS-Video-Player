@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang=”en” manifest="/cache.appcache">
+<head>
+<title>JW Player</title>
+<meta charset="utf-8">
+<script src="player.js"></script>
+<script src="https://kit.fontawesome.com/3bb55fb400.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    
+    <h1>JW Player Assignment - Isaac Subrahmanyam</h1>
+    
+    <br>
+    
+    <!-- API DEMONSTRATION -->
+    <h1>API Demonstration:</h1>
+    <h2>This demonstration has pre-made controls so viewer can see that the API is working.</h2>
+    
+    <!-- div to load video in -->
+    <div id = "demo"></div>
+    
+    <!-- load video in demo -->
+    <script>
+        vid = new Player("demo", 300, 180);
+        vid.setupDemonstration(vid);
+        vid.load("https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4");
+    </script>
+    
+    
+    
+    <!-- VIDEO PLAYER DEMONSTRATION -->
+    <h1>Video player demonstration:</h1>
+    <h2>This demonstration shows the dynamic video loader.<br>All you have to do is pick the div to load the video in as described in assignment.</h2>
+    
+    <!-- div to load videos in -->
+    <div id = "container"></div>
+    
+    <!-- load videos in container -->
+    <script>
+        vid2 = new Player("container", 300, 180);
+        vid2.setupVideoPlayer(vid2);
+        vid2.load("https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4");
+        
+        vid3 = new Player("container", 300, 180);
+        vid3.setupVideoPlayer(vid3);
+        vid3.load("https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4");
+    </script>
+
+    
+</body>
+</html>
