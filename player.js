@@ -152,10 +152,7 @@ class Player {
         this.createVid.setAttribute("class", "vidplayformat"); // set it's unique id
         document.getElementById(this.divID + "-" + "videoplayer").appendChild(this.createVid);
         this.video = document.getElementById(this.divID); // set up the video to point to the video element
-
-        // set width and height from constructor values
-        this.video.width = this.width;
-        this.video.height = this.height;
+        
         
         
         /* CREATE AND SETUP CONTROLS BAR */
@@ -169,6 +166,23 @@ class Player {
         
         // add buttons div to controls div
         this.createDivField("buttons", this.divID + "-" + "controls");
+        
+        
+        
+        /* CREATE VIDEO SCRUBBER */
+        
+        // setup scrup
+        function scrub (e) {
+            const scrubTime = (e.offsetX / document.getElementById(instance.divID + "-" + "bar").offsetWidth) * instance.video.duration;
+            instance.video.currentTime = scrubTime;
+        }
+
+        // if you click scrollbar change video time
+        var mousedown = false;
+        document.getElementById(this.divID + "-" + "bar").addEventListener("click", scrub);
+        document.getElementById(this.divID + "-" + "bar").addEventListener('mousemove', (e) => mousedown && scrub(e));
+        document.getElementById(this.divID + "-" + "bar").addEventListener('mousedown', () => mousedown = true);
+        document.getElementById(this.divID + "-" + "bar").addEventListener('mouseup', () => mousedown = false);
         
         
         
@@ -240,23 +254,6 @@ class Player {
         
         
         
-        /* CREATE VIDEO SCRUBBER */
-        
-        // setup scrup
-        function scrub (e) {
-            const scrubTime = (e.offsetX / document.getElementById(instance.divID + "-" + "bar").offsetWidth) * instance.video.duration;
-            instance.video.currentTime = scrubTime;
-        }
-
-        // if you click scrollbar change video time
-        var mousedown = false;
-        document.getElementById(this.divID + "-" + "bar").addEventListener("click", scrub);
-        document.getElementById(this.divID + "-" + "bar").addEventListener('mousemove', (e) => mousedown && scrub(e));
-        document.getElementById(this.divID + "-" + "bar").addEventListener('mousedown', () => mousedown = true);
-        document.getElementById(this.divID + "-" + "bar").addEventListener('mouseup', () => mousedown = false);
-        
-        
-        
         /* CREATE MUTE/UNMUTE CONTROLS */
         
         // toggle mute and unmute
@@ -315,13 +312,46 @@ class Player {
             if(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement)
             {
                 document.getElementById(instance.divID + "-" + "full-reg-screen").className = 'fullscreen';
-                document.webkitExitFullscreen();
+                document.exitFullscreen();
             } else
             {
                 document.getElementById(instance.divID + "-" + "full-reg-screen").className = 'minimisescreen';
-                getVidWrapper.webkitRequestFullscreen();
+                
+                if (getVidWrapper.requestFullscreen)
+                    getVidWrapper.requestFullscreen();
+                else if (getVidWrapper.mozRequestFullScreen)
+                    getVidWrapper.mozRequestFullScreen();
+                else if (getVidWrapper.webkitRequestFullscreen)
+                    getVidWrapper.webkitRequestFullscreen();
+                else if (getVidWrapper.msRequestFullscreen)
+                    getVidWrapper.msRequestFullscreen();
             }
         });
+        
+        // change icon if user clicks esc key
+        if (document.addEventListener)
+        {
+            document.addEventListener('fullscreenchange', exitHandler, false);
+            document.addEventListener('mozfullscreenchange', exitHandler, false);
+            document.addEventListener('MSFullscreenChange', exitHandler, false);
+            document.addEventListener('webkitfullscreenchange', exitHandler, false);
+        }
+
+        function exitHandler()
+        {
+            if (document.webkitIsFullScreen === false)
+            {
+                document.getElementById(instance.divID + "-" + "full-reg-screen").className = 'fullscreen';
+            }
+            else if (document.mozFullScreen === false)
+            {
+                document.getElementById(instance.divID + "-" + "full-reg-screen").className = 'fullscreen';
+            }
+            else if (document.msFullscreenElement === false)
+            {
+                document.getElementById(instance.divID + "-" + "full-reg-screen").className = 'fullscreen';
+            }
+        } 
         
     }
     

@@ -36,8 +36,10 @@
 .volumeslider::-moz-range-thumb {
     width: 20px;
     height: 20px;
-    background: darkred;
+    background: white;
     cursor: pointer;
+    border-color: transparent;
+    border-radius: 0px;
 }
 
 #container video::-webkit-media-controls-enclosure {
