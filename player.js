@@ -173,17 +173,18 @@ class Player {
         
         // setup scrup
         function scrub (e) {
-            const scrubTime = (e.offsetX / document.getElementById(instance.divID + "-" + "bar").offsetWidth) * instance.video.duration;
-            instance.video.currentTime = scrubTime;
+                const scrubTime = (e.offsetX / document.getElementById(instance.divID + "-" + "bar").offsetWidth) * instance.video.duration;
+                instance.video.currentTime = scrubTime;
         }
-
-        // if you click scrollbar change video time
-        var mousedown = false;
-        document.getElementById(this.divID + "-" + "bar").addEventListener("click", scrub);
-        document.getElementById(this.divID + "-" + "bar").addEventListener('mousemove', (e) => mousedown && scrub(e));
-        document.getElementById(this.divID + "-" + "bar").addEventListener('mousedown', () => mousedown = true);
-        document.getElementById(this.divID + "-" + "bar").addEventListener('mouseup', () => mousedown = false);
         
+        this.video.addEventListener("seeking", (event) => {
+            // if you click scrollbar change video time
+            var mousedown = false;
+            document.getElementById(this.divID + "-" + "bar").addEventListener("click", scrub);
+            document.getElementById(this.divID + "-" + "bar").addEventListener('mousemove', (e) => mousedown && scrub(e));
+            document.getElementById(this.divID + "-" + "bar").addEventListener('mousedown', () => mousedown = true);
+            document.getElementById(this.divID + "-" + "bar").addEventListener('mouseup', () => mousedown = false);
+        });
         
         
         /* CREATE PLAY PAUSE CONTROLS */
