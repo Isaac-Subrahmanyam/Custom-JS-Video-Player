@@ -1,20 +1,6 @@
 /**
-Video Player Class Assignment from JW Player.
+Video Player Class
 Author: Isaac Subrahmanyam
-
-Goal:
-    Make class as dynamic as possible.
-    Make it where you can load any ammount of videos to any div you select:
-        - Every video needs a unique id. Every video needs the same classes for styling.
-        - In order todo this, we need to have a base id and a unique id.
-        
-Notes to employer:
-    I know there is a lot of whitespace. But I wanted to make sure you understand how the code works.
-    Especially regarding the videoplayer function.
-    Also, the scrub bar sometimes acts up. I wasn't able to find an easy fix in time.
-    I didn't have enough time to work on the extra credit due to exams.
-    If due date is extended, I will be very happy to get the extra credit done!
-
 **/
 
 // keep track of total videos so we can create a unique id for each video
